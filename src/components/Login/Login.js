@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { userLoginAction } from "../../store/actions.js";
+import { userLoginAction, clearError } from "../../store/actions.js";
 import "./styles.scss";
 
 export function Login() {
@@ -15,7 +15,7 @@ export function Login() {
     }
     dispatch(userLoginAction({ name: name, password: password }));
   };
-
+  console.log("user", user, isUserInput);
   return (
     <div id="register-login">
       {/* <a class="logo" href="/"></a> */}
@@ -30,12 +30,11 @@ export function Login() {
                   className="userNameInput form-field"
                   onFocus={() => {
                     setIsUserInput(true);
-                    dispatch({
-                      type: "CLEAR_ERROR",
-                    });
+                    dispatch(clearError());
                   }}
                   onBlur={() => {
                     setIsUserInput(false);
+                    console.log("onblur input", isUserInput);
                   }}
                   placeholder="输入用户名"
                 />
@@ -46,9 +45,11 @@ export function Login() {
                 <input
                   onFocus={() => {
                     setIsUserInput(true);
-                    dispatch({
-                      type: "CLEAR_ERROR",
-                    });
+                    dispatch(clearError());
+                  }}
+                  onBlur={() => {
+                    setIsUserInput(false);
+                    console.log("onblur password input", isUserInput);
                   }}
                   type="password"
                   className=" password form-field"

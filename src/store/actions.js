@@ -1,9 +1,13 @@
 import { loginTrello } from "./TrelloApi";
 
 export const CLEAR_ERROR = "CLEAR_ERROR";
+export function clearError() {
+  return {
+    type: CLEAR_ERROR,
+  };
+}
 
 export const REQUEST_LOGIN = "REQUEST_LOGIN";
-
 function requestLogin() {
   return {
     type: REQUEST_LOGIN,
