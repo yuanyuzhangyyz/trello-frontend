@@ -1,6 +1,7 @@
-import { Login } from './component/Login/Login.js';
-import './App.css';
-import React from 'react';
+import { Login } from "./components/Login";
+import "./css/css.css";
+import React from "react";
+
 function App() {
   return (
     <div className="App">

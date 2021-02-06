@@ -4,50 +4,44 @@ module.exports = {
     browser: true,
     es2021: true,
     commonjs: true, //没有这一行，module报错
-    es6: true
+    es6: true,
   },
   extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:react-hooks/recommended',
-    'plugin:jsx-a11y/recommended',
-    'plugin:prettier/recommended',
-    'prettier/react'
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:prettier/recommended",
+    "prettier/react",
   ],
   parserOptions: {
     ecmaFeatures: {
-      jsx: true
+      jsx: true,
     },
     ecmaVersion: 12,
-    sourceType: 'module'
+    sourceType: "module",
   },
   settings: {
     react: {
-      version: 'detect'
-    }
+      version: "detect",
+    },
   },
-  plugins: ['react'],
-  parser: 'babel-eslint',
+  plugins: ["react"],
+  parser: "babel-eslint",
   rules: {
-    semi: ['error', 'always'],
+    semi: ["error", "always"],
 
-    'prettier/prettier': [
-      'error',
+    "prettier/prettier": [
+      "error",
       {
         semi: true,
-
-        singleQuote: true,
-
+        singleQuote: false,
         printWidth: 80,
-
         tabWidth: 2,
-
         jsxSingleQuote: false,
-
-        trailingComma: 'none',
-
-        arrowParens: 'avoid'
-      }
-    ]
-  }
+        trailingComma: "es5",
+        // arrowParens: "avoid",
+      },
+    ],
+  },
 };
