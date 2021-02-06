@@ -1,11 +1,14 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { userLoginAction } from "../../store/actions.js";
 import "./styles.scss";
 
 export function Login() {
   const dispatch = useDispatch();
-
+  const user = useSelector((state) => {
+    return state.entities.user;
+  });
+  const [isUserInput, setIsUserInput] = useState(false);
   const userLogin = (name, password) => {
     if (name.trim() === "" || password.trim() === "") {
       alert("用户名和密码不能为空");
@@ -16,16 +19,24 @@ export function Login() {
   return (
     <div id="register-login">
       {/* <a class="logo" href="/"></a> */}
-
       <div className="section-wrapper">
         <div className="account-form">
           <h1>登录到 Trello</h1>
           <form id="register-form">
+            {user.error && !isUserInput && renderErrorMessage(user.error)}
             <div>
               <label>
                 <input
                   className="userNameInput form-field"
-                  //   autoFocus="autofocus"
+                  onFocus={() => {
+                    setIsUserInput(true);
+                    dispatch({
+                      type: "CLEAR_ERROR",
+                    });
+                  }}
+                  onBlur={() => {
+                    setIsUserInput(false);
+                  }}
                   placeholder="输入用户名"
                 />
               </label>
@@ -33,6 +44,12 @@ export function Login() {
             <div>
               <label>
                 <input
+                  onFocus={() => {
+                    setIsUserInput(true);
+                    dispatch({
+                      type: "CLEAR_ERROR",
+                    });
+                  }}
                   type="password"
                   className=" password form-field"
                   placeholder="输入密码"
@@ -61,3 +78,7 @@ export function Login() {
     </div>
   );
 }
+
+const renderErrorMessage = (error) => {
+  return <div>{error.errorDetails}</div>;
+};

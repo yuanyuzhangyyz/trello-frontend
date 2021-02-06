@@ -1,4 +1,7 @@
 import { loginTrello } from "./TrelloApi";
+
+export const CLEAR_ERROR = "CLEAR_ERROR";
+
 export const REQUEST_LOGIN = "REQUEST_LOGIN";
 
 function requestLogin() {
@@ -40,7 +43,6 @@ export function userLoginAction(payload) {
       },
       (err) => {
         dispatch(userLoginFail(err));
-        alert(err);
       }
     );
   };
