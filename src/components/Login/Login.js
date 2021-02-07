@@ -15,10 +15,8 @@ export function Login() {
     }
     dispatch(userLoginAction({ name: name, password: password }));
   };
-  console.log("user", user, isUserInput);
   return (
     <div id="register-login">
-      {/* <a class="logo" href="/"></a> */}
       <div className="section-wrapper">
         <div className="account-form">
           <h1>登录到 Trello</h1>
@@ -34,7 +32,6 @@ export function Login() {
                   }}
                   onBlur={() => {
                     setIsUserInput(false);
-                    console.log("onblur input", isUserInput);
                   }}
                   placeholder="输入用户名"
                 />
@@ -49,7 +46,6 @@ export function Login() {
                   }}
                   onBlur={() => {
                     setIsUserInput(false);
-                    console.log("onblur password input", isUserInput);
                   }}
                   type="password"
                   className=" password form-field"
