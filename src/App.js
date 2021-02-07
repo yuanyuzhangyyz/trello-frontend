@@ -1,13 +1,20 @@
-import { Login } from "./components/Login";
 import "./css/css.css";
 import React from "react";
+import { Link } from "react-router-dom";
 
-function App() {
+export function App() {
   return (
     <div className="App">
-      <Login></Login>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/home">Home</Link>
+          </li>
+          <li>
+            <Link to="/login">Login</Link>
+          </li>
+        </ul>
+      </nav>
     </div>
   );
 }
-
-export default App;

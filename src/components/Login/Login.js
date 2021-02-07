@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { userLoginAction, clearError } from "../../store/actions.js";
 import "./styles.scss";
 
 export function Login() {
+  let history = useHistory();
+
   const dispatch = useDispatch();
   const user = useSelector((state) => {
     return state.entities.user;
@@ -15,6 +18,12 @@ export function Login() {
     }
     dispatch(userLoginAction({ name: name, password: password }));
   };
+
+  useEffect(() => {
+    if (user.userName) {
+      history.push("/home");
+    }
+  }, [history, user]);
   return (
     <div id="register-login">
       <div className="section-wrapper">
