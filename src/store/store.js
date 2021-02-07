@@ -3,7 +3,12 @@ import thunkMiddleware from "redux-thunk";
 import { createLogger } from "redux-logger";
 const loggerMiddleware = createLogger();
 
-import { REQUEST_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_FAIL } from "./actions";
+import {
+  REQUEST_LOGIN,
+  USER_LOGIN_SUCCESS,
+  USER_LOGIN_FAIL,
+  CLEAR_ERROR,
+} from "./actions";
 const initstate = {
   entities: {
     user: {
@@ -15,6 +20,15 @@ const initstate = {
 
 function trelloReducer(state = initstate, action) {
   switch (action.type) {
+    case CLEAR_ERROR:
+      return {
+        ...state,
+        entities: {
+          user: {
+            err: undefined,
+          },
+        },
+      };
     case REQUEST_LOGIN:
       return {
         ...state,

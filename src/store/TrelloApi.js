@@ -11,9 +11,8 @@ export async function loginTrello(payload) {
         resolve(JSON.parse(xhr.responseText));
       } else {
         let errData = xhr.responseText;
-        errData = JSON.parse(errData);
-        console.log(errData);
-        reject({ error: "error" });
+        const errResponse = JSON.parse(errData);
+        reject(errResponse);
       }
     };
     xhr.send(JSON.stringify(payload));
