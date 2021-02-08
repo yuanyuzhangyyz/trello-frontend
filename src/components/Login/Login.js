@@ -43,6 +43,7 @@ export function Login() {
                     setIsUserInput(false);
                   }}
                   placeholder="输入用户名"
+                  maxLength="32"
                 />
               </label>
             </div>
@@ -59,6 +60,7 @@ export function Login() {
                   type="password"
                   className=" password form-field"
                   placeholder="输入密码"
+                  maxLength="32"
                 />
               </label>
             </div>
