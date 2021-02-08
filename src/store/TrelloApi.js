@@ -4,10 +4,11 @@ export async function loginTrello(payload) {
   let xhr = new XMLHttpRequest();
   xhr.open("post", `${API_BASE}/user/login`, true);
   xhr.setRequestHeader("content-type", "application/json");
-
   const promise = new Promise((resolve, reject) => {
     xhr.onload = function () {
       if (xhr.readyState == 4 && xhr.status == 200) {
+        let authorization = xhr.getResponseHeader("Authorization");
+        localStorage.setItem("authorization", authorization); //是否要在这里存储authorization
         resolve(JSON.parse(xhr.responseText));
       } else {
         let errData = xhr.responseText;
@@ -19,3 +20,5 @@ export async function loginTrello(payload) {
   });
   return promise;
 }
+
+// xhr.setRequestHeader('Authorization', 'Bearer '+localStorage.getItem('authorization'));
