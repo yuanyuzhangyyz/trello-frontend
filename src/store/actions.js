@@ -1,9 +1,42 @@
-import { loginTrello } from "./TrelloApi";
+import { loginTrello, registTrello } from "./TrelloApi";
 
-export const CLEAR_ERROR = "CLEAR_ERROR";
-export function clearError() {
+export const CLEAR_LOGIN_ERROR = "CLEAR_LOGIN_ERROR";
+export function clearLoginError() {
   return {
-    type: CLEAR_ERROR,
+    type: CLEAR_LOGIN_ERROR,
+  };
+}
+export const CLEAR_REGISTER_ERROR = "CLEAR_ERROR";
+export function clearRegisterError() {
+  return {
+    type: CLEAR_REGISTER_ERROR,
+  };
+}
+
+export const REQUEST_REGISTER = "REQUEST_REGISTER";
+function requestRegister() {
+  return {
+    type: REQUEST_REGISTER,
+  };
+}
+
+export const USER_REGISTER_SUCCESS = "USER_LOGIN_SUCCESS";
+function receiveUserRegisterSucess(data) {
+  return {
+    type: USER_LOGIN_SUCCESS,
+    payload: {
+      username: data.name,
+    },
+  };
+}
+
+export const USER_REGISTER_FAIL = "USER_LOGIN_FAIL";
+export function userRegisterFail(error) {
+  return {
+    type: USER_LOGIN_FAIL,
+    payload: {
+      error,
+    },
   };
 }
 
@@ -47,6 +80,20 @@ export function userLoginAction(payload) {
       },
       (err) => {
         dispatch(userLoginFail(err));
+      }
+    );
+  };
+}
+
+export function userRegisterAction(payload) {
+  return function (dispatch) {
+    dispatch(requestRegister());
+    registTrello(payload).then(
+      (response) => {
+        dispatch(receiveUserRegisterSucess(response));
+      },
+      (err) => {
+        dispatch(userRegisterFail(err));
       }
     );
   };

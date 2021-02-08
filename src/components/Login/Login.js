@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
-import { userLoginAction, clearError } from "../../store/actions.js";
+import { userLoginAction, clearLoginError } from "../../store/actions.js";
 import "./styles.scss";
 
 export function Login() {
   let history = useHistory();
-
   const dispatch = useDispatch();
   const user = useSelector((state) => {
     return state.entities.user;
@@ -30,14 +29,16 @@ export function Login() {
         <div className="account-form">
           <h1>登录到 Trello</h1>
           <form id="register-form">
-            {user.error && !isUserInput && renderErrorMessage(user.error)}
+            {user.error
+              ? user.error && !isUserInput && renderErrorMessage(user.error)
+              : null}
             <div>
               <label>
                 <input
                   className="userNameInput form-field"
                   onFocus={() => {
                     setIsUserInput(true);
-                    dispatch(clearError());
+                    dispatch(clearLoginError());
                   }}
                   onBlur={() => {
                     setIsUserInput(false);
@@ -52,7 +53,7 @@ export function Login() {
                 <input
                   onFocus={() => {
                     setIsUserInput(true);
-                    dispatch(clearError());
+                    dispatch(clearLoginError());
                   }}
                   onBlur={() => {
                     setIsUserInput(false);

@@ -1,19 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { userLoginAction, clearError } from "../../store/actions.js";
+import { useHistory, Link } from "react-router-dom";
+import { userRegisterAction, clearRegisterError } from "../../store/actions.js";
 import "./styles.scss";
 
 export function Register() {
+  let history = useHistory();
   const dispatch = useDispatch();
-  const user = useSelector((state) => {
-    return state.entities.user;
+  const register = useSelector((state) => {
+    console.log("state.entities", state.entities);
+    return state.entities.register;
   });
-  const [isUserInput, setIsUserInput] = useState(false);
-  const userLogin = (name, password) => {
-    if (name.trim() === "" || password.trim() === "") {
-      alert("用户名和密码不能为空");
+  useEffect(() => {
+    if (register.userName) {
+      console.log("register.userName", register.userName);
+      history.push("/login");
     }
-    dispatch(userLoginAction({ name: name, password: password }));
+  }, [history, register]);
+  const userRegister = (name, password, rePassword) => {
+    if (
+      name.trim() === "" ||
+      password.trim() === "" ||
+      rePassword.trim() === ""
+    ) {
+      const error = { errorDetails: "用户名和密码不能为空" };
+      return renderErrorMessage(error);
+    } else if (password !== rePassword) {
+      const error = { errorDetails: "两次密码输入不一致" };
+      return renderErrorMessage(error);
+    } else if (name.length < 6 || password.lenght < 6) {
+      const error = { errorDetails: "用户名或密码不能小于6位" };
+      console.log("用户名或密码不能小于6位");
+      return renderErrorMessage(error);
+    }
+    dispatch(
+      userRegisterAction({
+        name: name,
+        password: password,
+        rePassword: rePassword,
+      })
+    );
   };
   return (
     <div id="register-login">
@@ -21,51 +47,39 @@ export function Register() {
         <div className="account-form">
           <h1>登录到 Trello</h1>
           <form id="register-form">
-            {user.error && !isUserInput && renderErrorMessage(user.error)}
+            {register.error && renderErrorMessage(register.error)}
             <div>
               <label>
                 <input
                   className="userNameInput form-field"
-                  onFocus={() => {
-                    setIsUserInput(true);
-                    dispatch(clearError());
-                  }}
-                  onBlur={() => {
-                    setIsUserInput(false);
-                  }}
                   placeholder="输入用户名"
+                  onFocus={() => {
+                    dispatch(clearRegisterError());
+                  }}
                 />
               </label>
             </div>
             <div>
               <label>
                 <input
-                  onFocus={() => {
-                    setIsUserInput(true);
-                    dispatch(clearError());
-                  }}
-                  onBlur={() => {
-                    setIsUserInput(false);
-                  }}
                   type="password"
                   className=" password form-field"
                   placeholder="输入密码"
+                  onFocus={() => {
+                    dispatch(clearRegisterError());
+                  }}
                 />
               </label>
             </div>
             <div>
               <label>
                 <input
-                  onFocus={() => {
-                    setIsUserInput(true);
-                    dispatch(clearError());
-                  }}
-                  onBlur={() => {
-                    setIsUserInput(false);
-                  }}
                   type="password"
-                  className="password form-field"
+                  className="repassword password form-field"
                   placeholder="再次输入密码"
+                  onFocus={() => {
+                    dispatch(clearRegisterError());
+                  }}
                 />
               </label>
             </div>
@@ -73,15 +87,18 @@ export function Register() {
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  userLogin(
+                  userRegister(
                     document.querySelector(".userNameInput").value,
-                    document.querySelector(".password").value
+                    document.querySelector(".password").value,
+                    document.querySelector(".repassword").value
                   );
                 }}
                 className="btn btn-success"
               >
                 注册
               </button>
+              <span className="signin-signup-separator">或者</span>
+              <Link to="/login">登陆</Link>
             </div>
           </form>
         </div>
