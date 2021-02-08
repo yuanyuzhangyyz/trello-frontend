@@ -1,13 +1,4 @@
 html,
-body {
-  height: 100%;
-  color: #172b4d;
-  font-size: 14px;
-  line-height: 20px;
-  font-weight: 400;
-}
-
-html,
 body,
 ul,
 h1,
@@ -23,13 +14,6 @@ p {
 
 ul {
   list-style: none;
-}
-
-u {
-  cursor: pointer;
-}
-u:hover {
-  color: #000;
 }
 
 /*icon*/
