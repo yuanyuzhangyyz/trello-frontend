@@ -1,4 +1,5 @@
 import { Login } from "./components/Login";
+import { Register } from "./components/Register";
 import { Home } from "./components/Home";
 import { App } from "./App";
 import React from "react";

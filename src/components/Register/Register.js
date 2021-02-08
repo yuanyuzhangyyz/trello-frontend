@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, Link } from "react-router-dom";
 import { userLoginAction, clearError } from "../../store/actions.js";
 import "./styles.scss";
 
-export function Login() {
-  let history = useHistory();
-
+export function Register() {
   const dispatch = useDispatch();
   const user = useSelector((state) => {
     return state.entities.user;
@@ -18,12 +15,6 @@ export function Login() {
     }
     dispatch(userLoginAction({ name: name, password: password }));
   };
-
-  useEffect(() => {
-    if (user.userName) {
-      history.push("/home");
-    }
-  }, [history, user]);
   return (
     <div id="register-login">
       <div className="section-wrapper">
@@ -43,7 +34,6 @@ export function Login() {
                     setIsUserInput(false);
                   }}
                   placeholder="输入用户名"
-                  maxLength="32"
                 />
               </label>
             </div>
@@ -60,7 +50,22 @@ export function Login() {
                   type="password"
                   className=" password form-field"
                   placeholder="输入密码"
-                  maxLength="32"
+                />
+              </label>
+            </div>
+            <div>
+              <label>
+                <input
+                  onFocus={() => {
+                    setIsUserInput(true);
+                    dispatch(clearError());
+                  }}
+                  onBlur={() => {
+                    setIsUserInput(false);
+                  }}
+                  type="password"
+                  className="password form-field"
+                  placeholder="再次输入密码"
                 />
               </label>
             </div>
@@ -75,10 +80,8 @@ export function Login() {
                 }}
                 className="btn btn-success"
               >
-                登录
+                注册
               </button>
-              <span className="signin-signup-separator">或者</span>
-              <Link to="/signup">注册</Link>
             </div>
           </form>
         </div>
@@ -90,3 +93,11 @@ export function Login() {
 const renderErrorMessage = (error) => {
   return <div>{error.errorDetails}</div>;
 };
+
+// const submitRegister = (e) => {
+//   console.log(e, "e");
+//   e.target.classList.add("active");
+//   // let btnArray = document.getElementsByClassName("btn");
+//   // console.log("btnArray[btnArray.length - 1]", btnArray[btnArray.length - 1]);
+//   // btnArray[btnArray.length - 1].classList.add("active");
+// };
