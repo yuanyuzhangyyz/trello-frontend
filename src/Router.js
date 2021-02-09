@@ -1,4 +1,5 @@
 import { Login } from "./components/Login";
+import { BoardHome } from "./components/BoardHome";
 import { Register } from "./components/Register";
 import { Home } from "./components/Home";
 import { App } from "./App";
@@ -14,6 +15,9 @@ export function Router() {
         </Route>
         <Route exact strict path="/home">
           <Home />
+        </Route>
+        <Route exact strict path="/boardhome">
+          <BoardHome />
         </Route>
         <Route exact strict path="/login">
           <Login />

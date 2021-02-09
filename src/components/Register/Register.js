@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
-import { userRegisterAction, clearRegisterError } from "../../store/actions.js";
+import {
+  userRegisterAction,
+  clearRegisterError,
+} from "../../store/actions/signupActions";
 import "./styles.scss";
 
 export function Register() {
@@ -45,7 +48,7 @@ export function Register() {
     <div id="register-login">
       <div className="section-wrapper">
         <div className="account-form">
-          <h1>登录到 Trello</h1>
+          <h1>注册新的账号</h1>
           <form id="register-form">
             {register.error && renderErrorMessage(register.error)}
             <div>
@@ -65,9 +68,6 @@ export function Register() {
                   type="password"
                   className=" password form-field"
                   placeholder="输入密码"
-                  onFocus={() => {
-                    dispatch(clearRegisterError());
-                  }}
                 />
               </label>
             </div>
@@ -77,9 +77,6 @@ export function Register() {
                   type="password"
                   className="repassword password form-field"
                   placeholder="再次输入密码"
-                  onFocus={() => {
-                    dispatch(clearRegisterError());
-                  }}
                 />
               </label>
             </div>
@@ -98,7 +95,7 @@ export function Register() {
                 注册
               </button>
               <span className="signin-signup-separator">或者</span>
-              <Link to="/login">登陆</Link>
+              <Link to="/login">登录</Link>
             </div>
           </form>
         </div>

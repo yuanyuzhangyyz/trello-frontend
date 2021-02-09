@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
-import { userLoginAction, clearLoginError } from "../../store/actions.js";
+import {
+  userLoginAction,
+  clearLoginError,
+} from "../../store/actions/loginActions";
 import "./styles.scss";
 
 export function Login() {
