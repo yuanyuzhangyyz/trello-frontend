@@ -11,7 +11,6 @@ export function Register() {
   let history = useHistory();
   const dispatch = useDispatch();
   const register = useSelector((state) => {
-    console.log("state.entities", state.entities);
     return state.entities.register;
   });
   useEffect(() => {
@@ -33,7 +32,6 @@ export function Register() {
       return renderErrorMessage(error);
     } else if (name.length < 6 || password.lenght < 6) {
       const error = { errorDetails: "用户名或密码不能小于6位" };
-      console.log("用户名或密码不能小于6位");
       return renderErrorMessage(error);
     }
     dispatch(

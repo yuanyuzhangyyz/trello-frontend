@@ -1,8 +1,9 @@
 import React from "react";
-
+import { BoardHomeHeader } from "./BoardHomeHeader";
 export function BoardHome() {
   return (
     <div id="home">
+      <BoardHomeHeader></BoardHomeHeader>
       {/* <t-header></t-header> */}
 
       <h2>

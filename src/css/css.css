@@ -165,6 +165,7 @@ input {
 }
 
 .btn.btn-success {
+  width: 100%;
   background: #5aac44;
   color: #fff;
 }

@@ -1,5 +1,4 @@
 import { registTrello } from "../TrelloApi";
-
 //Sign up
 export const CLEAR_REGISTER_ERROR = "CLEAR_REGISTER_ERROR";
 export function clearRegisterError() {

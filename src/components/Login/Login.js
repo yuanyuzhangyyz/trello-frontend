@@ -23,7 +23,7 @@ export function Login() {
 
   useEffect(() => {
     if (user.userName) {
-      history.push("/home");
+      history.push("/boardhome");
     }
   }, [history, user]);
   return (

@@ -32,7 +32,6 @@ export async function registTrello(payload) {
       } else {
         let errData = xhr.responseText;
         const errResponse = JSON.parse(errData);
-        console.log("errResponse111", errResponse);
         reject(errResponse);
       }
     };

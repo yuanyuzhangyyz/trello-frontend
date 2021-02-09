@@ -17,7 +17,6 @@ function requestLogin() {
 
 export const USER_LOGIN_SUCCESS = "USER_LOGIN_SUCCESS";
 function receiveUserLoginSuccess(data) {
-  console.log("action.payload2222222222", data);
   return {
     type: USER_LOGIN_SUCCESS,
     payload: {
@@ -43,7 +42,6 @@ export function userLoginFail(error) {
 export function userLoginAction(payload) {
   return function (dispatch) {
     dispatch(requestLogin());
-    console.log();
     loginTrello(payload).then(
       (response) => {
         dispatch(receiveUserLoginSuccess(response));
