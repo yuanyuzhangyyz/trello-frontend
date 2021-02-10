@@ -17,9 +17,6 @@ export function Router() {
         <Route exact strict path="/login">
           <Login />
         </Route>
-        <Route exact strict path="/signup">
-          <Register />
-        </Route>
       </Switch>
     </BrowserRouter>
   );
