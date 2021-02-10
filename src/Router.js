@@ -11,10 +11,10 @@ export function Router() {
         <Route exact path="/">
           <App />
         </Route>
-        <Route exact path="/home">
+        <Route exact strict path="/home">
           <Home />
         </Route>
-        <Route path="/login">
+        <Route exact strict path="/login">
           <Login />
         </Route>
       </Switch>
