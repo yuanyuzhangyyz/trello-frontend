@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import {
@@ -13,26 +13,29 @@ export function Register() {
   const register = useSelector((state) => {
     return state.entities.register;
   });
+
+  const [localError, setLocalError] = useState("");
   useEffect(() => {
     if (register.userName) {
       console.log("register.userName", register.userName);
       history.push("/login");
     }
   }, [history, register]);
+
   const userRegister = (name, password, rePassword) => {
+    console.log("name, password, rePassword", name, password, rePassword);
     if (
       name.trim() === "" ||
       password.trim() === "" ||
       rePassword.trim() === ""
     ) {
-      const error = { errorDetails: "用户名和密码不能为空" };
-      return renderErrorMessage(error);
+      setLocalError("用户名和密码不能为空");
     } else if (password !== rePassword) {
       const error = { errorDetails: "两次密码输入不一致" };
-      return renderErrorMessage(error);
+      setLocalError(error.errorDetails);
     } else if (name.length < 6 || password.lenght < 6) {
       const error = { errorDetails: "用户名或密码不能小于6位" };
-      return renderErrorMessage(error);
+      setLocalError(error.errorDetails);
     }
     dispatch(
       userRegisterAction({
@@ -48,7 +51,8 @@ export function Register() {
         <div className="account-form">
           <h1>注册新的账号</h1>
           <form id="register-form">
-            {register.error && renderErrorMessage(register.error)}
+            {register.error && renderErrorMessage(register.error.errorDetails)}
+            {localError && renderErrorMessage(localError)}
             <div>
               <label>
                 <input
@@ -102,14 +106,18 @@ export function Register() {
   );
 }
 
-const renderErrorMessage = (error) => {
-  return <div>{error.errorDetails}</div>;
+const renderErrorMessage = (errors) => {
+  if (typeof errors === "string") {
+    return <div>{errors}</div>;
+  }
+  const violationsErrors = errors.map((error) => {
+    return Object.values(error.violations);
+  });
+  return (
+    <div>
+      {violationsErrors.map((error, index) => {
+        return <div key={index}>{error}</div>;
+      })}
+    </div>
+  );
 };
-
-// const submitRegister = (e) => {
-//   console.log(e, "e");
-//   e.target.classList.add("active");
-//   // let btnArray = document.getElementsByClassName("btn");
-//   // console.log("btnArray[btnArray.length - 1]", btnArray[btnArray.length - 1]);
-//   // btnArray[btnArray.length - 1].classList.add("active");
-// };

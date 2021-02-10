@@ -69,7 +69,7 @@ function trelloReducer(state = initstate, action) {
       return {
         ...state,
         entities: {
-          ...state.entities.user,
+          ...state.entities,
           register: {
             isFetching: false,
             error: action.payload.error,
