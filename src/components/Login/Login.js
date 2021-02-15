@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { userLoginAction, clearError } from "../../store/actions.js";
+import { useHistory, Link } from "react-router-dom";
+import {
+  userLoginAction,
+  clearLoginError,
+} from "../../store/actions/loginActions";
 import "./styles.scss";
 
 export function Login() {
   let history = useHistory();
-
   const dispatch = useDispatch();
   const user = useSelector((state) => {
     return state.entities.user;
@@ -21,7 +23,7 @@ export function Login() {
 
   useEffect(() => {
     if (user.userName) {
-      history.push("/home");
+      history.push("/boardhome");
     }
   }, [history, user]);
   return (
@@ -30,14 +32,16 @@ export function Login() {
         <div className="account-form">
           <h1>登录到 Trello</h1>
           <form id="register-form">
-            {user.error && !isUserInput && renderErrorMessage(user.error)}
+            {user.error
+              ? user.error && !isUserInput && renderErrorMessage(user.error)
+              : null}
             <div>
               <label>
                 <input
                   className="userNameInput form-field"
                   onFocus={() => {
                     setIsUserInput(true);
-                    dispatch(clearError());
+                    dispatch(clearLoginError());
                   }}
                   onBlur={() => {
                     setIsUserInput(false);
@@ -52,7 +56,7 @@ export function Login() {
                 <input
                   onFocus={() => {
                     setIsUserInput(true);
-                    dispatch(clearError());
+                    dispatch(clearLoginError());
                   }}
                   onBlur={() => {
                     setIsUserInput(false);
@@ -78,7 +82,7 @@ export function Login() {
                 登录
               </button>
               <span className="signin-signup-separator">或者</span>
-              <input type="button" className="btn" value="注册" />
+              <Link to="/signup">注册</Link>
             </div>
           </form>
         </div>

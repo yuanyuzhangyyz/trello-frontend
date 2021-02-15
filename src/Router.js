@@ -1,5 +1,6 @@
 import { Login } from "./components/Login";
-import { Home } from "./components/Home";
+import { BoardHome } from "./components/BoardHome";
+import { Register } from "./components/Register";
 import { App } from "./App";
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
@@ -11,11 +12,14 @@ export function Router() {
         <Route exact path="/">
           <App />
         </Route>
-        <Route exact strict path="/home">
-          <Home />
+        <Route exact strict path="/boardhome">
+          <BoardHome />
         </Route>
         <Route exact strict path="/login">
           <Login />
+        </Route>
+        <Route path="/signup">
+          <Register />
         </Route>
       </Switch>
     </BrowserRouter>

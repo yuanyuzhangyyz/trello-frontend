@@ -7,11 +7,23 @@ import {
   REQUEST_LOGIN,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
-  CLEAR_ERROR,
-} from "./actions";
+  CLEAR_LOGIN_ERROR,
+} from "./actions/loginActions";
+
+import {
+  CLEAR_REGISTER_ERROR,
+  REQUEST_REGISTER,
+  USER_REGISTER_SUCCESS,
+  USER_REGISTER_FAIL,
+} from "./actions/signupActions";
+
 const initstate = {
   entities: {
     user: {
+      isFetching: false,
+      userName: undefined,
+    },
+    register: {
       isFetching: false,
       userName: undefined,
     },
@@ -20,28 +32,69 @@ const initstate = {
 
 function trelloReducer(state = initstate, action) {
   switch (action.type) {
-    case CLEAR_ERROR:
+    // Login
+    case CLEAR_REGISTER_ERROR:
       return {
         ...state,
         entities: {
-          user: {
+          ...state.entities,
+          register: {
             err: undefined,
           },
         },
       };
-    case REQUEST_LOGIN:
+    case REQUEST_REGISTER:
       return {
         ...state,
         entities: {
-          user: {
+          ...state.entities,
+          register: {
+            ...state.entities.register,
             isFetching: true,
           },
         },
       };
+    case USER_REGISTER_SUCCESS:
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          register: {
+            isFetching: false,
+            userName: action.payload.username,
+          },
+        },
+      };
+    case USER_REGISTER_FAIL:
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          register: {
+            isFetching: false,
+            error: action.payload.error,
+          },
+        },
+      };
+
+    // Sigin up
+    case REQUEST_LOGIN:
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          user: {
+            ...state.entities.user,
+            isFetching: true,
+          },
+        },
+      };
+
     case USER_LOGIN_SUCCESS:
       return {
         ...state,
         entities: {
+          ...state.entities,
           user: {
             isFetching: false,
             userName: action.payload.username,
@@ -52,9 +105,21 @@ function trelloReducer(state = initstate, action) {
       return {
         ...state,
         entities: {
+          ...state.entities.register,
           user: {
             isFetching: false,
             error: action.payload.error,
+          },
+        },
+      };
+
+    case CLEAR_LOGIN_ERROR:
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          user: {
+            err: undefined,
           },
         },
       };
