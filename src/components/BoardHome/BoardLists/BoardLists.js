@@ -9,7 +9,7 @@ export function BoardLists() {
 
   useEffect(() => {
     dispatch(obtainBoardLists());
-  }, [dispatch, boardsLists]);
+  }, [dispatch]);
 
   return (
     <ul>

@@ -2,6 +2,11 @@ import { createStore, applyMiddleware } from "redux";
 import thunkMiddleware from "redux-thunk";
 import { createLogger } from "redux-logger";
 const loggerMiddleware = createLogger();
+import {
+  GET_BOARDLISTS_FAIL,
+  GET_BOARDLISTS_SUCCESS,
+  REQUEST_GET_BOARDLISTS,
+} from "./actions/getBoardListsAction";
 
 import {
   REQUEST_LOGIN,
@@ -17,6 +22,12 @@ import {
   USER_REGISTER_FAIL,
 } from "./actions/signupActions";
 
+import {
+  ADD_BOARDNAME_SUCCESS,
+  ADD_BOARDNAME_FAIL,
+  REQUEST_ADD_BOARDNAME,
+} from "./actions/boardActions";
+
 const initstate = {
   entities: {
     user: {
@@ -27,6 +38,12 @@ const initstate = {
       isFetching: false,
       userName: undefined,
     },
+    boards: {
+      isFetching: false,
+      name: undefined,
+      id: undefined,
+    },
+    boardLists: { items: [], isFetching: false },
   },
 };
 
@@ -105,7 +122,7 @@ function trelloReducer(state = initstate, action) {
       return {
         ...state,
         entities: {
-          ...state.entities.register,
+          ...state.entities,
           user: {
             isFetching: false,
             error: action.payload.error,
@@ -124,6 +141,79 @@ function trelloReducer(state = initstate, action) {
         },
       };
 
+    // addBoard
+
+    case REQUEST_ADD_BOARDNAME:
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          boards: {
+            ...state.entities.boards,
+            isFetching: true,
+          },
+        },
+      };
+
+    case ADD_BOARDNAME_SUCCESS:
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          boards: {
+            isFetching: false,
+            name: action.name,
+            id: action.id,
+          },
+        },
+      };
+    case ADD_BOARDNAME_FAIL:
+      return {
+        ...state,
+        entities: {
+          ...state.entities.boards,
+          boards: {
+            isFetching: false,
+            error: action.payload.error,
+          },
+        },
+      };
+    // getBoardLists
+
+    case REQUEST_GET_BOARDLISTS:
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          boardLists: {
+            ...state.entities.boardLists,
+            isFetching: true,
+          },
+        },
+      };
+
+    case GET_BOARDLISTS_SUCCESS:
+      console.log(action.payload, "action.payload");
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          boardLists: { items: action.payload.boardLists, isFetching: false },
+        },
+      };
+    case GET_BOARDLISTS_FAIL:
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          boardLists: [
+            {
+              isFetching: false,
+              error: action.payload.error,
+            },
+          ],
+        },
+      };
     default:
       return state;
   }
