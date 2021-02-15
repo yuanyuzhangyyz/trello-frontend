@@ -160,10 +160,9 @@ function trelloReducer(state = initstate, action) {
         ...state,
         entities: {
           ...state.entities,
-          boards: {
+          boardLists: {
+            items: [...state.entities.boardLists.items, action.payload],
             isFetching: false,
-            name: action.name,
-            id: action.id,
           },
         },
       };
