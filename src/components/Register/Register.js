@@ -17,13 +17,11 @@ export function Register() {
   const [localError, setLocalError] = useState("");
   useEffect(() => {
     if (register.userName) {
-      console.log("register.userName", register.userName);
       history.push("/login");
     }
   }, [history, register]);
 
   const userRegister = (name, password, rePassword) => {
-    console.log("name, password, rePassword", name, password, rePassword);
     if (
       name.trim() === "" ||
       password.trim() === "" ||

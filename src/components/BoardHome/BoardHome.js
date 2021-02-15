@@ -4,8 +4,6 @@ export function BoardHome() {
   return (
     <div id="home">
       <BoardHomeHeader></BoardHomeHeader>
-      {/* <t-header></t-header> */}
-
       <h2>
         <span className="icon icon-board"></span>
         我的看板
@@ -19,7 +17,6 @@ export function BoardHome() {
           <textarea
             className="title form-field-input"
             placeholder="创建新看板"
-            blur="postBoard"
           ></textarea>
         </li>
       </ul>
