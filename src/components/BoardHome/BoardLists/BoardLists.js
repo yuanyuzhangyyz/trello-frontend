@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { obtainBoardLists } from "../../../store/actions/getBoardListsAction";
+import { createNewBoard } from "../../../store/actions/boardActions";
 import "./styles.scss";
 
 export function BoardLists() {
@@ -8,7 +9,7 @@ export function BoardLists() {
   const boardsLists = useSelector((state) => {
     return state.entities.boardLists.items;
   });
-
+  const newBoardName = useRef(null);
   useEffect(() => {
     dispatch(obtainBoardLists());
   }, [dispatch]);
@@ -22,6 +23,17 @@ export function BoardLists() {
           </li>
         );
       })}
+      <li className="board-item create-new-board">
+        <textarea
+          className="title form-field-input"
+          placeholder="创建新看板"
+          ref={newBoardName}
+          onBlur={() => {
+            dispatch(createNewBoard({ name: newBoardName.current.value }));
+            newBoardName.current.value = "";
+          }}
+        ></textarea>
+      </li>
     </ul>
   );
 }
