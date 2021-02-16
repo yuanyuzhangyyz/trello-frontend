@@ -9,7 +9,9 @@ export async function loginTrello(payload) {
       if (xhr.readyState == 4 && xhr.status == 200) {
         let authorization = xhr.getResponseHeader("Authorization");
         localStorage.setItem("authorization", authorization); //是否要在这里存储authorization
-        resolve(JSON.parse(xhr.responseText));
+        const user = JSON.parse(xhr.responseText);
+        localStorage.setItem("user", JSON.stringify(user));
+        resolve(user);
       } else {
         let errData = xhr.responseText;
         const errResponse = JSON.parse(errData);

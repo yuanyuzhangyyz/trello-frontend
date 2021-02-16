@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export function BoardHomeHeader() {
+  const user = JSON.parse(localStorage.getItem("user"));
   return (
     <header>
       <div className="left">
@@ -19,15 +20,10 @@ export function BoardHomeHeader() {
           <i className="icon icon-add"></i>
         </a>
 
-        <div className="popup-container">
-          <div className="popup">
-            <div className="popup-header">
-              <span className="popup-title">title </span>
-              <a href="!#" className="popup-header-close">
-                <i className="icon icon-close"></i>
-              </a>
-            </div>
-          </div>
+        <div className="currentUserName">
+          <button className="avatar">
+            <span>{user.name}</span>
+          </button>
         </div>
       </div>
     </header>
