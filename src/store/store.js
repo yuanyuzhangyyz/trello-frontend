@@ -142,7 +142,6 @@ function trelloReducer(state = initstate, action) {
       };
 
     // addBoard
-
     case REQUEST_ADD_BOARDNAME:
       return {
         ...state,
