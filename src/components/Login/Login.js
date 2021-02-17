@@ -19,7 +19,7 @@ export function Login() {
     dispatch(userLoginAction({ name: name, password: password }));
   };
   const user = useSelector((state) => {
-    return state.entities.user;
+    return state.user;
   });
   useEffect(() => {
     if (user.userName) {

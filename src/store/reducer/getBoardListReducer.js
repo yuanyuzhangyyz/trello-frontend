@@ -21,7 +21,7 @@ export function getBoardListReducer(
     case GET_BOARDLISTS_SUCCESS:
       return {
         ...state,
-        items: action.payload,
+        items: action.payload.boardLists,
         isFetching: false,
       };
     case GET_BOARDLISTS_FAIL:
