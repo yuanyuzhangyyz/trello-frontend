@@ -191,7 +191,6 @@ function trelloReducer(state = initstate, action) {
       };
 
     case GET_BOARDLISTS_SUCCESS:
-      console.log(action.payload, "action.payload");
       return {
         ...state,
         entities: {

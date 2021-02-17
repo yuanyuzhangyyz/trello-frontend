@@ -50,7 +50,6 @@ export async function addNewBoardName(payload) {
 
   const promise = new Promise((resolve, reject) => {
     xhr.onload = function () {
-      console.log("---onloadd");
       if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 201)) {
         resolve(JSON.parse(xhr.responseText));
       } else {
@@ -74,7 +73,6 @@ export async function getBoardLists(payload) {
       if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 201)) {
         const results = JSON.parse(xhr.responseText);
         const mappedResults = results.map((item) => ({ name: item.name }));
-        console.log(mappedResults);
         resolve(mappedResults);
       } else {
         let errData = xhr.responseText;
