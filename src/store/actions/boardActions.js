@@ -30,10 +30,6 @@ export function addBoardNameFail(error) {
   };
 }
 
-// 来看一下我们写的第一个 thunk action 创建函数！
-// 虽然内部操作不同，你可以像其它 action 创建函数 一样使用它：
-// store.dispatch(fetchPosts('reactjs'))
-
 export function createNewBoard(payload) {
   return function (dispatch) {
     dispatch(requestAddBoardName());

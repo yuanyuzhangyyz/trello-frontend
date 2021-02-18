@@ -6,17 +6,19 @@ import "./styles.scss";
 
 export function BoardLists() {
   const dispatch = useDispatch();
-  const boardsLists = useSelector((state) => {
-    return state.entities.boardLists.items;
+  const boardLists = useSelector((state) => {
+    console.log(state.boardLists, "state*****************");
+    return state.boardLists;
   });
   const newBoardName = useRef(null);
   useEffect(() => {
+    console.log(111);
     dispatch(obtainBoardLists());
   }, [dispatch]);
 
   return (
     <ul className="boardListsShow">
-      {boardsLists.map((board, index) => {
+      {boardLists.items.map((board, index) => {
         return (
           <li key={index} className="board-item">
             {board.name}

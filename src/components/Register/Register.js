@@ -11,7 +11,7 @@ export function Register() {
   let history = useHistory();
   const dispatch = useDispatch();
   const register = useSelector((state) => {
-    return state.entities.register;
+    return state.register;
   });
 
   const [localError, setLocalError] = useState("");
