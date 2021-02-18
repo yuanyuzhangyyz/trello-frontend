@@ -7,12 +7,10 @@ import "./styles.scss";
 export function BoardLists() {
   const dispatch = useDispatch();
   const boardLists = useSelector((state) => {
-    console.log(state.boardLists, "state*****************");
     return state.boardLists;
   });
   const newBoardName = useRef(null);
   useEffect(() => {
-    console.log(111);
     dispatch(obtainBoardLists());
   }, [dispatch]);
 
