@@ -10,9 +10,7 @@ import "./styles.scss";
 export function Login() {
   let history = useHistory();
   const dispatch = useDispatch();
-  const user = useSelector((state) => {
-    return state.entities.user;
-  });
+
   const [isUserInput, setIsUserInput] = useState(false);
   const userLogin = (name, password) => {
     if (name.trim() === "" || password.trim() === "") {
@@ -20,7 +18,9 @@ export function Login() {
     }
     dispatch(userLoginAction({ name: name, password: password }));
   };
-
+  const user = useSelector((state) => {
+    return state.user;
+  });
   useEffect(() => {
     if (user.userName) {
       history.push("/boardhome");
