@@ -1,11 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { obtainBoardLists } from "../../../store/actions/getBoardListsAction";
 import { createNewBoard } from "../../../store/actions/boardActions";
 import "./styles.scss";
 
 export function BoardLists() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const boardLists = useSelector((state) => {
     return state.boardLists;
   });
@@ -18,8 +20,16 @@ export function BoardLists() {
     <ul className="boardListsShow">
       {boardLists.items.map((board, index) => {
         return (
-          <li key={index} className="board-item">
-            {board.name}
+          <li
+            key={index}
+            className="board-item"
+            role="presentation"
+            onClick={() => {
+              console.log(board);
+              history.push(`/board/${board.id}`);
+            }}
+          >
+            <span>{board.name}</span>
           </li>
         );
       })}

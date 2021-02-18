@@ -72,7 +72,10 @@ export async function getBoardLists(payload) {
     xhr.onload = function () {
       if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 201)) {
         const results = JSON.parse(xhr.responseText);
-        const mappedResults = results.map((item) => ({ name: item.name }));
+        const mappedResults = results.map((item) => ({
+          name: item.name,
+          id: item.id,
+        }));
         resolve(mappedResults);
       } else {
         let errData = xhr.responseText;
