@@ -1,4 +1,7 @@
-const API_BASE = "http://localhost:8080/api/v1";
+console.log(process.env.NODE_ENV);
+console.log(process.env.REACT_APP_API_URL);
+const API_BASE = `${process.env.REACT_APP_API_URL}/api/v1`;
+console.log(API_BASE);
 
 export async function loginTrello(payload) {
   let xhr = new XMLHttpRequest();
