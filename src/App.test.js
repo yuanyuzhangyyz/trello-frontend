@@ -3,6 +3,8 @@ import { BrowserRouter } from "react-router-dom";
 import { App } from "./App";
 import React from "react";
 
+console.log(process.env.NODE_ENV);
+
 describe("App", () => {
   it("renders login link", () => {
     render(
